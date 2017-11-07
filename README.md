@@ -1,4 +1,4 @@
-# od-2.0
+# template
 
 > A Vue.js project
 

@@ -1,4 +1,4 @@
-(function (root, factory) {
+(function(root, factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define(['exports', 'echarts'], factory);
@@ -9,8 +9,8 @@
         // Browser globals
         factory({}, root.echarts);
     }
-}(this, function (exports, echarts) {
-    var log = function (msg) {
+}(this, function(exports, echarts) {
+    var log = function(msg) {
         if (typeof console !== 'undefined') {
             console && console.error && console.error(msg);
         }
@@ -19,42 +19,57 @@
         log('ECharts is not Loaded');
         return;
     }
-    var contrastColor = '#eee';
-    var axisCommon = function () {
+    var axisCommon = function() {
         return {
             axisLine: {
                 lineStyle: {
-                    color: contrastColor
+                    color: axisColor
                 }
             },
             axisTick: {
                 lineStyle: {
-                    color: contrastColor
+                    color: axisColor
                 }
             },
             axisLabel: {
                 textStyle: {
-                    color: contrastColor
+                    color: axisColor
                 }
             },
             splitLine: {
                 lineStyle: {
                     type: 'dashed',
-                    color: '#aaa'
+                    color: '#DCDCDC'
                 }
             },
             splitArea: {
                 areaStyle: {
-                    color: contrastColor
+                    color: axisColor
                 }
             }
         };
     };
+    // 默认字体颜色
+    var dftextColor = '#959595'
+    // 工具提示-鼠标悬浮-轴线的颜色
+    var contrastColor = '#eee'; 
+    // 主题色板
+    var colorPalette = ['#dd6b66', '#759aa0', '#e69d87', '#8dc1a9', '#ea7e53', '#eedd78', '#73a373', '#73b9bc', '#7289ab', '#91ca8c', '#f49f42'];
+    // 坐标轴颜色
+    var axisColor = '#959595';
+    // 标题颜色
+    var titleColor = '#878787';
+    // 背景颜色
+    var backgroundColor = '#efefef';
+    // 图例颜色
+    var legendColor = '#959595'
 
-    var colorPalette = ['#dd6b66','#759aa0','#e69d87','#8dc1a9','#ea7e53','#eedd78','#73a373','#73b9bc','#7289ab', '#91ca8c','#f49f42'];
     var theme = {
-        color: colorPalette,
-        backgroundColor: '#333',
+        backgroundColor: backgroundColor,
+        color: ['#1adab8','#0a95dc','#f99403','#49A7DA','#91c7ae','#749f83'],
+        textStyle:{
+          color: dftextColor
+        },
         tooltip: {
             axisPointer: {
                 lineStyle: {
@@ -67,16 +82,17 @@
         },
         legend: {
             textStyle: {
-                color: contrastColor
+                color: legendColor || dftextColor
             }
-        },
-        textStyle: {
-            color: contrastColor
         },
         title: {
             textStyle: {
-                color: contrastColor
-            }
+                color: titleColor,
+                fontSize:16,
+                fontFamily:'Microsoft YaHei',
+            },
+            top: 5,
+            left: 'center',
         },
         toolbox: {
             iconStyle: {
@@ -89,6 +105,13 @@
             textStyle: {
                 color: contrastColor
             }
+        },
+        grid: {
+            containLabel: true,
+            left: 5,
+            right: 5,
+            top: 10,
+            bottom: 5,
         },
         timeline: {
             lineStyle: {
@@ -117,9 +140,17 @@
         logAxis: axisCommon(),
         valueAxis: axisCommon(),
         categoryAxis: axisCommon(),
-
         line: {
-            symbol: 'circle'
+            symbol: 'circle',
+            symbolSize: 3,
+            lineStyle: {
+                normal: {
+                    width: 1
+                }
+            }
+        },
+        bar: {
+            barMaxWidth: 30
         },
         graph: {
             color: colorPalette
@@ -129,7 +160,19 @@
                 textStyle: {
                     color: contrastColor
                 }
+            },
+            axisLine: {
+                lineStyle:{
+                    color:[[0.2, '#1adab8'], [0.8, '#097e97'], [1, '#f94303']]
+                }
+            },
+            axisTick:{
+                show:false
+            },
+            splitLine:{
+                show:false
             }
+
         },
         candlestick: {
             itemStyle: {

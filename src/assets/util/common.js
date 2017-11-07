@@ -62,6 +62,7 @@ export function arrayUnique (array) {
   }
   return arrClone
 }
+/*获取当前的位置*/
 export function getCurrentPosition () {
   return new Promise((resolve, reject) => {
     if (!('geolocation' in window.navigator)) {
@@ -126,4 +127,52 @@ export function htmlDecode (str) {
   s = s.replace(/&#39;/g, "\'")
   s = s.replace(/&quot;/g, "\"")
   return s
+}
+
+
+/* 格式化日期为 yyyy/mm/dd*/
+export function formatDate (date,str) {
+  str = str || '/'
+  let time = new Date(date);
+  let month = time.getMonth() + 1;
+  if(month<10){
+    month = '0' + month;
+  }
+  let day = time.getDate();
+  if(day<10){
+    day = '0' + date;
+  }
+  return [time.getFullYear(),month,day].join(str);
+}
+
+// 格式化数字
+export function formatNumber (num) {
+  if (num > 100000000) return (num/100000000).toFixed(1) + '亿' 
+  if (num > 10000) return (num/10000).toFixed(1) + '万'
+}
+
+/* 获取两个日期间的每一天*/
+export function getDateRangeArray (date1, date2) {
+  date1 = new Date(date1)
+  date2 = new Date(date2)
+  let result = []
+  for (let start = date1, end = date2; start <= end; start.setDate(start.getDate() + 1)) {
+    // console .log(start)
+    result.push(formatDate(start))
+  }
+  return result
+}
+
+// 获取某个月份的每一天的数组
+export function getMonthDay (date){
+  if (!typeof date === Date){
+    date = new Date(date)
+  }
+  let start = new Date(date)
+  let end = new Date(date)
+  start.setDate(1)
+  end.setMonth(end.getMonth()+1)
+  end.setDate(0)
+  console.log(start, end)
+  return getDateRangeArray(start, end)
 }
