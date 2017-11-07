@@ -15,7 +15,7 @@ module.exports = {
   ],
   // add your custom rules here
   'rules': {
-    'vue/valid-v-if': 'error'
-    'vue/enforce valid v-if directives': 'error'
+    'vue/valid-v-if': 'error',
+    'vue/no-async-in-computed-properties': 'error'
   }
 }
